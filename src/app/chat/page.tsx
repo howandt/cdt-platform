@@ -135,7 +135,13 @@ if (isTrialExpired) {
                     ? 'bg-blue-600 text-white' 
                     : 'bg-gray-100 text-gray-900'
                 }`}>
-                  <p className="text-sm">{message.content}</p>
+                  <div className="text-sm space-y-2">
+  {message.content.split('\n').map((line, index) => (
+    <p key={index} className={line.trim() === '' ? 'h-2' : ''}>
+      {line}
+    </p>
+  ))}
+</div>
                 </div>
               </div>
             </div>
