@@ -18,10 +18,19 @@ export default function ChatPage() {
   const [isLoading, setIsLoading] = useState(false)
 
   const sendMessage = async () => {
-    if (isTrialExpired) {
-      alert('Din trial er udløbet. Opgrader til Basic eller Pro for fortsat adgang.')
-      return
-    }
+    // Developer bypass
+if (inputMessage.trim() === 'how0839') {
+  alert('🔧 Developer Mode Aktiveret! Ubegrænset adgang.')
+  // Reset trial timer
+  localStorage.setItem('trialStartTime', Date.now().toString())
+  setInputMessage('')
+  return
+}
+
+if (isTrialExpired) {
+  alert('Din trial er udløbet. Opgrader til Basic eller Pro for fortsat adgang.')
+  return
+}
     
     if (!inputMessage.trim()) return
 
