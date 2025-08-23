@@ -9,11 +9,11 @@ export default function ChatPage() {
   const { user } = useUser()
   const { timeLeft, isTrialExpired, formatTime } = useTrial()
   const [messages, setMessages] = useState([
-    {
-      role: 'assistant',
-      content: 'Hej! Jeg er din CDT AI-assistent. Jeg er her for at hjælpe dig med specialpædagogik udfordringer. Hvad kan jeg hjælpe dig med i dag?'
-    }
-  ])
+  {
+    role: 'assistant',
+    content: '👋 Hej og velkommen! Jeg hedder **Heidi** – din AI-tutor i arbejdet med børn med diagnoser 🌱\n\nJeg er klar til at hjælpe dig – men for at tilpasse læringen bedst muligt, må jeg lige stille dig et par hurtige spørgsmål:\n\n1️⃣ **Hvilket sprog vil du bruge?** 🇩🇰 Dansk · 🇬🇧 Engelsk · 🌍 Andet\n*(Skriv bare dit valg)*\n\n(Så snart du svarer, går vi videre til næste trin!)'
+  }
+])
   const [inputMessage, setInputMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
