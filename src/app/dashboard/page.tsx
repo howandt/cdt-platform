@@ -147,16 +147,27 @@ export default function Dashboard() {
                 Chat med vores specialpædagogik AI om specifikke udfordringer og få personaliserede råd.
               </p>
               {isTrialExpired ? (
-                <button className="bg-gray-400 text-white px-6 py-2 rounded-lg cursor-not-allowed">
-                  Trial Udløbet
-                </button>
-              ) : (
-                <Link href="/chat">
-                  <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                    Start Chat
-                  </button>
-                </Link>
-              )}
+  <div className="space-y-2">
+    <button className="w-full bg-gray-400 text-white px-6 py-2 rounded-lg cursor-not-allowed">
+      Trial Udløbet
+    </button>
+    <button 
+      onClick={() => {
+        localStorage.setItem('trialStartTime', Date.now().toString())
+        window.location.reload()
+      }}
+      className="w-full bg-green-600 text-white px-4 py-1 text-sm rounded hover:bg-green-700"
+    >
+      🔧 Developer Reset
+    </button>
+  </div>
+) : (
+  <Link href="/chat">
+    <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+      Start Chat
+    </button>
+  </Link>
+)}
             </div>
 
             {/* Resources */}
