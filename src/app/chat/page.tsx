@@ -18,13 +18,13 @@ export default function ChatPage() {
   const [isLoading, setIsLoading] = useState(false)
 
   const sendMessage = async () => {
-    const sendMessage = async () => {
-  if (isTrialExpired) {
-    alert('Din trial er udløbet. Opgrader til Basic eller Pro for fortsat adgang.')
-    return
-  }
-  
-  if (!inputMessage.trim()) return
+    if (isTrialExpired) {
+      alert('Din trial er udløbet. Opgrader til Basic eller Pro for fortsat adgang.')
+      return
+    }
+    
+    if (!inputMessage.trim()) return
+
     const userMessage = {
       role: 'user',
       content: inputMessage
@@ -94,8 +94,8 @@ export default function ChatPage() {
             </div>
             <div className="flex items-center space-x-4">
               <span className={`text-sm ${isTrialExpired ? 'text-red-600 font-semibold' : 'text-gray-700'}`}>
-  {isTrialExpired ? 'Trial Udløbet' : `Trial: ${formatTime(timeLeft)} tilbage`}
-</span>
+                {isTrialExpired ? 'Trial Udløbet' : `Trial: ${formatTime(timeLeft)} tilbage`}
+              </span>
               <UserButton />
             </div>
           </div>
