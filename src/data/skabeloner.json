@@ -1,0 +1,342 @@
+{
+  "template_database": {
+    "metadata": {
+      "system": "CDA/CDT",
+      "version": "2025.1",
+      "total_templates": 17,
+      "last_updated": "2025-08-24",
+      "creator": "Howandt - 72 år, 65 år med ADHD/Aspergers, 8000 timer udvikling",
+      "philosophy": "Børn skal ikke passe til skolen, skolen skal passe til børnene"
+    },
+    "templates": [
+      {
+        "id": "visuel_dagsplan",
+        "title": "Visuel Dagsplan",
+        "category": "struktur",
+        "subcategory": "dagligdag",
+        "tags": ["struktur", "dagplan", "visuel", "rutiner", "forudsigelig", "autisme", "adhd"],
+        "age_range": [3, 18],
+        "diagnoses": ["autisme", "adhd", "angst", "sprogvanskeligheder"],
+        "complexity": "beginner",
+        "usage_frequency": "daily",
+        "urgency": "routine",
+        "ai_specialists": ["AI-ergoterapeut Lene Kristensen"],
+        "content": {
+          "purpose": "Skaber struktur i dagligdagen",
+          "description": "Grundlæggende visuel dagsplan der giver børn med diagnoser forudsigelige rammer"
+        },
+        "search_keywords": ["dagplan", "struktur", "rutiner", "visuel støtte", "forudsigelig"],
+        "related_templates": ["dagplansbygger", "ugeplan_maal", "kommunikationslog"]
+      },
+      {
+        "id": "dagplansbygger", 
+        "title": "Dagplansbygger – tilpas din egen dagsplan",
+        "category": "struktur",
+        "subcategory": "personalisering",
+        "tags": ["dagplan", "personlig", "valgmuligheder", "emoji", "piktogrammer", "tilpasning"],
+        "age_range": [4, 18],
+        "diagnoses": ["autisme", "adhd", "sprogvanskeligheder", "intellektuel funktionsnedsættelse"],
+        "complexity": "intermediate",
+        "usage_frequency": "weekly",
+        "urgency": "routine",
+        "ai_specialists": ["AI-strukturvejleder", "AI-forældrespecialist"],
+        "content": {
+          "purpose": "Brugervenlig skabelon med valgfunktion: vælg aktiviteter fra liste og skab individuel visuel dagsplan",
+          "description": "Avanceret dagsplansværktøj der lader barnet/familien vælge og tilpasse aktiviteter"
+        },
+        "search_keywords": ["tilpas dagplan", "vælg aktiviteter", "personlig dagplan", "emoji dagplan"],
+        "related_templates": ["visuel_dagsplan", "ugeplan_maal", "motivation_belonning"]
+      },
+      {
+        "id": "refleksionsark",
+        "title": "Hvad skete i dag? (Refleksionsark)",
+        "category": "kommunikation",
+        "subcategory": "selvreflektion",
+        "tags": ["reflektion", "daglig oplevelse", "følelser", "kommunikation", "indsigt"],
+        "age_range": [5, 16],
+        "diagnoses": ["autisme", "adhd", "angst", "social angst", "depression"],
+        "complexity": "intermediate", 
+        "usage_frequency": "daily",
+        "urgency": "routine",
+        "ai_specialists": ["AI-psykolog Marie Andersen"],
+        "content": {
+          "purpose": "Giver indsigt i barnets daglige oplevelse og følelser",
+          "description": "Struktureret refleksionsværktøj der hjælper barnet med at kommunikere om dagen"
+        },
+        "search_keywords": ["reflektion", "hvad skete", "barnets dag", "følelser", "daglig oplevelse"],
+        "related_templates": ["hvis_jeg_foeler", "kommunikationslog", "sociale_relationer"]
+      },
+      {
+        "id": "hvis_jeg_foeler",
+        "title": "Hvis-jeg-føler-Kort",
+        "category": "følelser", 
+        "subcategory": "regulering",
+        "tags": ["følelser", "regulering", "kort", "strategi", "selvstyring", "krise"],
+        "age_range": [4, 16],
+        "diagnoses": ["adhd", "autisme", "angst", "ocd", "tourettes", "bipolar"],
+        "complexity": "intermediate",
+        "usage_frequency": "crisis",
+        "urgency": "high",
+        "ai_specialists": ["AI-speciallærer Jonas Bæk", "AI-kriseinterventionsspecialist Omar Elmi"],
+        "content": {
+          "purpose": "Støtter følelsesregulering gennem konkrete strategier",
+          "description": "Praktiske kort med strategier til forskellige følelsestilstande"
+        },
+        "search_keywords": ["følelser", "vred", "ked af det", "angst", "frustreret", "følelsesregulering"],
+        "related_templates": ["refleksionsark", "skolevagring_plan", "tal_til_ro"]
+      },
+      {
+        "id": "kommunikationslog",
+        "title": "Kommunikationslog Skole ↔ Hjem", 
+        "category": "kommunikation",
+        "subcategory": "skole_hjem",
+        "tags": ["kommunikation", "skole", "hjem", "log", "samarbejde", "information"],
+        "age_range": [3, 18],
+        "diagnoses": ["alle"],
+        "complexity": "beginner",
+        "usage_frequency": "daily",
+        "urgency": "routine",
+        "ai_specialists": ["AI-socialrådgiver Maja Holm"],
+        "content": {
+          "purpose": "Skaber tryg og struktureret informationsudveksling mellem skole og hjem",
+          "description": "Standardiseret kommunikationsværktøj for daglig opdatering"
+        },
+        "search_keywords": ["kommunikation skole", "skole hjem", "daglig log", "informationsudveksling"],
+        "related_templates": ["refleksionsark", "skolevagring_plan", "sociale_relationer"]
+      },
+      {
+        "id": "ugeplan_maal",
+        "title": "Ugeplan med Mål og Belønning",
+        "category": "motivation",
+        "subcategory": "planlægning", 
+        "tags": ["ugeplan", "mål", "belønning", "motivation", "fremgang", "struktur"],
+        "age_range": [6, 18],
+        "diagnoses": ["adhd", "autisme", "angst", "ocd"],
+        "complexity": "intermediate",
+        "usage_frequency": "weekly",
+        "urgency": "routine",
+        "ai_specialists": ["AI-specialpædagog", "AI-adfærdsanalytiker"],
+        "content": {
+          "purpose": "Understøtter motivation og fremgang gennem målsætning og belønning",
+          "description": "Struktureret ugeplanlægning med indbyggede mål og belønningssystem"
+        },
+        "search_keywords": ["ugeplan", "mål", "belønning", "motivation", "fremgang", "ugeplanlægning"],
+        "related_templates": ["dagplansbygger", "motivation_belonning", "visuel_dagsplan"]
+      },
+      {
+        "id": "skolevagring_plan",
+        "title": "Trinvis Plan mod Skolevægring",
+        "category": "intervention",
+        "subcategory": "skolevægring",
+        "tags": ["skolevægring", "angst", "gradual", "trinvis", "skole", "genindtræden", "krise"],
+        "age_range": [6, 16], 
+        "diagnoses": ["angst", "adhd", "autisme", "depression", "ocd", "social angst"],
+        "complexity": "advanced",
+        "usage_frequency": "crisis",
+        "urgency": "high",
+        "ai_specialists": ["AI-psykolog Marie Andersen", "AI-skolerådgiverteam"],
+        "content": {
+          "purpose": "Støtter børn, der har udviklet modstand mod skolen med gradvist og trygt genindtræden",
+          "description": "Trinvist program for at få børn med skolevægring tilbage til skolen"
+        },
+        "search_keywords": ["skolevægring", "ikke vil i skole", "skole angst", "gradual exposure"],
+        "related_templates": ["hvis_jeg_foeler", "kommunikationslog", "refleksionsark"]
+      },
+      {
+        "id": "tal_til_ro",
+        "title": "Tal-til-ro: Søvnritual for børn med ADHD", 
+        "category": "søvn",
+        "subcategory": "ritual",
+        "tags": ["søvn", "adhd", "ritual", "tal", "ro", "afslappning", "aftenmad"],
+        "age_range": [4, 14],
+        "diagnoses": ["adhd", "angst", "autisme", "ocd"],
+        "complexity": "beginner",
+        "usage_frequency": "daily",
+        "urgency": "routine",
+        "ai_specialists": ["AI-søvnpsykolog", "AI-ergoterapeut"],
+        "content": {
+          "purpose": "En guidet teknik med tælning og beroligende stemme, inspireret af personlig erfaring",
+          "description": "Personlig udviklet søvnritual baseret på 65 års erfaring med ADHD"
+        },
+        "search_keywords": ["søvn adhd", "søvnritual", "tal til ro", "afslappning", "søvnproblemer"],
+        "related_templates": ["visuel_dagsplan", "hvis_jeg_foeler", "dagplansbygger"]
+      },
+      {
+        "id": "sociale_relationer",
+        "title": "Sociale relationer – kontakt og samvær",
+        "category": "social",
+        "subcategory": "relationer",
+        "tags": ["sociale færdigheder", "venskab", "kontakt", "samvær", "relationer"],
+        "age_range": [5, 18],
+        "diagnoses": ["autisme", "adhd", "social angst", "aspergers"],
+        "complexity": "intermediate", 
+        "usage_frequency": "weekly",
+        "urgency": "moderate",
+        "ai_specialists": ["AI-specialpædagog", "AI-socialrådgiver"],
+        "content": {
+          "purpose": "Hjælper barnet med at navigere venskaber og sociale fællesskaber",
+          "description": "Praktiske værktøjer til at forstå og udvikle sociale relationer"
+        },
+        "search_keywords": ["sociale færdigheder", "venskab", "sociale relationer", "kontakt"],
+        "related_templates": ["refleksionsark", "kommunikationslog", "hvis_jeg_foeler"]
+      },
+      {
+        "id": "spisning_maltider",
+        "title": "Spisning og måltidstræning",
+        "category": "dagligdag",
+        "subcategory": "måltider",
+        "tags": ["spisning", "måltider", "selektiv spisning", "sensorisk", "ernæring"],
+        "age_range": [2, 16],
+        "diagnoses": ["autisme", "adhd", "angst", "sensoriske forstyrrelser"],
+        "complexity": "intermediate",
+        "usage_frequency": "daily", 
+        "urgency": "moderate",
+        "ai_specialists": ["AI-ernæringsekspert", "AI-ergoterapeut"],
+        "content": {
+          "purpose": "Struktur og støtte ved spisesituationer, selektiv spisning, sanseudfordringer",
+          "description": "Målrettede strategier for børn med spisevanskeligheder"
+        },
+        "search_keywords": ["selektiv spisning", "spisevanskeligheder", "måltider struktur"],
+        "related_templates": ["visuel_dagsplan", "hvis_jeg_foeler", "dagplansbygger"]
+      },
+      {
+        "id": "motivation_belonning", 
+        "title": "Motivation og belønningsstrategier",
+        "category": "motivation",
+        "subcategory": "adfærd",
+        "tags": ["motivation", "belønning", "adfærd", "indre motivation", "ydre motivation"],
+        "age_range": [4, 18],
+        "diagnoses": ["adhd", "autisme", "ocd", "angst"],
+        "complexity": "intermediate",
+        "usage_frequency": "weekly",
+        "urgency": "routine",
+        "ai_specialists": ["AI-adfærdsanalytiker", "AI-psykolog"],
+        "content": {
+          "purpose": "Understøtter indre og ydre motivation i hjem og skole",
+          "description": "Balancerede motivationsstrategier der bygger selvværd og engagement"
+        },
+        "search_keywords": ["motivation", "belønning", "belønningssystem", "indre motivation"],
+        "related_templates": ["ugeplan_maal", "hvis_jeg_foeler", "refleksionsark"]
+      },
+      {
+        "id": "toilettraening_hygiejne",
+        "title": "Toilettræning og hygiejneværktøjer",
+        "category": "dagligdag", 
+        "subcategory": "hygiejne",
+        "tags": ["toilettræning", "hygiejne", "selvhjulpenhed", "trinvis", "visuel guide"],
+        "age_range": [2, 10],
+        "diagnoses": ["autisme", "adhd", "intellektuel funktionsnedsættelse"],
+        "complexity": "beginner",
+        "usage_frequency": "daily",
+        "urgency": "routine",
+        "ai_specialists": ["AI-sundhedsplejerske", "AI-ergoterapeut"],
+        "content": {
+          "purpose": "Trinvise guides og visuel støtte ved toilettræning",
+          "description": "Strukturerede værktøjer til toilettræning og daglig hygiejne"
+        },
+        "search_keywords": ["toilettræning", "hygiejne", "selvhjulpenhed", "trinvis guide"],
+        "related_templates": ["visuel_dagsplan", "dagplansbygger", "hvis_jeg_foeler"]
+      },
+      {
+        "id": "trafiklys_kort",
+        "title": "🚦 Trafiklys-Kort – Mit signal og hvad du kan gøre",
+        "category": "følelser",
+        "subcategory": "kommunikation",
+        "tags": ["følelser", "kommunikation", "signaler", "trafiklys", "visuel støtte", "krise"],
+        "age_range": [4, 16],
+        "diagnoses": ["autisme", "adhd", "angst", "kommunikationsvanskeligheder"],
+        "complexity": "beginner",
+        "usage_frequency": "daily",
+        "urgency": "high",
+        "ai_specialists": ["AI-AKT-specialist", "AI-EmotionReg", "AI-Strukturvejleder"],
+        "content": {
+          "purpose": "Støtte børn i at udtrykke følelsestilstand og behov via visuel farvekodning",
+          "description": "Personligt signalkort der gør følelser håndgribelige og kommunikerbare"
+        },
+        "search_keywords": ["trafiklys", "følelsessignaler", "kommunikation følelser", "visuel støtte"],
+        "related_templates": ["hvis_jeg_foeler", "kommunikationslog", "vredeskort_affekt"],
+        "teacher_snippet": "hh: 'Trafiklyskort reddede min klasse - barnet kunne endelig fortælle hvordan det havde det uden ord'"
+      },
+      {
+        "id": "laesestotte_ordblindhed",
+        "title": "📖 Læsestøtte og Ordblindhed – Elevens Mestringsmappe",
+        "category": "læring",
+        "subcategory": "dysleksi",
+        "tags": ["dysleksi", "læsestøtte", "ordblindhed", "læsestrategier", "skole"],
+        "age_range": [6, 16],
+        "diagnoses": ["dysleksi", "læsevanskeligheder", "adhd", "autisme"],
+        "complexity": "intermediate",
+        "usage_frequency": "daily",
+        "urgency": "moderate",
+        "ai_specialists": ["AI-Dyslexia Specialist", "AI-Neuropsychologist", "AI-Special Educator"],
+        "content": {
+          "purpose": "Støtte til børn med dysleksi i skole og hjem",
+          "description": "Komplet mestringsmappe med læsestrategier og hjælpemidler"
+        },
+        "search_keywords": ["dysleksi", "ordblindhed", "læsestøtte", "læsestrategier", "hjælpemidler"],
+        "related_templates": ["motivation_belonning", "ugeplan_maal", "mestringsprofil_styrker"],
+        "teacher_snippet": "lt: 'Dreng med ordblindhed gik fra at hade læsning til at læse 2 bøger på en måned med denne mappe'"
+      },
+      {
+        "id": "overgange_skift",
+        "title": "🔄 Overgange og Skift – Hvis-så og visuel struktur",
+        "category": "struktur",
+        "subcategory": "overgange",
+        "tags": ["overgange", "skift", "struktur", "rutiner", "hvis-så", "visuel støtte"],
+        "age_range": [3, 16],
+        "diagnoses": ["autisme", "adhd", "angst", "udviklingsforstyrrelser"],
+        "complexity": "intermediate",
+        "usage_frequency": "daily",
+        "urgency": "moderate",
+        "ai_specialists": ["AI-ergoterapeut", "AI-struktur-specialist"],
+        "content": {
+          "purpose": "Hjælp ved overgangssituationer (fx hjem-skole, aktivitet-skift)",
+          "description": "Strukturerede værktøjer til at håndtere overgange og aktivitetsskift"
+        },
+        "search_keywords": ["overgange", "aktivitetsskift", "struktur", "rutiner", "hvis-så planer"],
+        "related_templates": ["visuel_dagsplan", "dagplansbygger", "trafiklys_kort"],
+        "teacher_snippet": "mb: 'Overgangsplanen hjalp pige med autisme - nu skifter hun aktivitet uden sammenbrud'"
+      },
+      {
+        "id": "vredeskort_affekt",
+        "title": "😡 Mit Vredeskort – Affekthåndtering i praksis",
+        "category": "følelser",
+        "subcategory": "vredeshåndtering",
+        "tags": ["vrede", "affekt", "følelsesregulering", "krise", "selvkontrol", "ro-teknikker"],
+        "age_range": [5, 16],
+        "diagnoses": ["adhd", "autisme", "ocd", "adfærdsforstyrrelser", "bipolar"],
+        "complexity": "intermediate",
+        "usage_frequency": "crisis",
+        "urgency": "high",
+        "ai_specialists": ["AI-kriseinterventionsspecialist", "AI-psykolog"],
+        "content": {
+          "purpose": "Gør barnets vrede håndgribelig og forudsigelig",
+          "description": "Struktureret vredehåndtering med konkrete strategier og sikkerhedsplaner"
+        },
+        "search_keywords": ["vrede", "vredeshåndtering", "affekt", "ro-teknikker", "krise"],
+        "related_templates": ["hvis_jeg_foeler", "trafiklys_kort", "refleksionsark"],
+        "teacher_snippet": "pk: 'Vredeskort forhindrede 3 udsmidninger på en uge - drengen lærte at bruge det i stedet for at slå'"
+      },
+      {
+        "id": "mestringsprofil_styrker",
+        "title": "🌟 Min Mestringsprofil (Styrkebaseret)",
+        "category": "motivation",
+        "subcategory": "selvværd",
+        "tags": ["selvværd", "styrker", "mestringsprofil", "identitet", "motivation", "selvtillid"],
+        "age_range": [8, 18],
+        "diagnoses": ["alle", "lav selvtillid", "depression", "angst"],
+        "complexity": "intermediate",
+        "usage_frequency": "weekly",
+        "urgency": "routine",
+        "ai_specialists": ["AI-psykolog", "AI-speciallærer"],
+        "content": {
+          "purpose": "Støtter selvværd og identitet hos børn med lav selvtillid",
+          "description": "Styrkebaseret profil der hjælper barnet med at se egne ressourcer"
+        },
+        "search_keywords": ["selvværd", "styrker", "selvtillid", "mestringsprofil", "identitet"],
+        "related_templates": ["motivation_belonning", "refleksionsark", "sociale_relationer"],
+        "teacher_snippet": "sl: 'Mestringsprofil hjalp stille dreng med at se sine egne evner - nu tør han række hånden op'"
+      }
+    ]
+  }
+}

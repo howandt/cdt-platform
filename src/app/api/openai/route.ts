@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
+// Import skabelon database
+import skabelonDatabase from '../../../data/skabeloner.json'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -8,6 +10,21 @@ const openai = new OpenAI({
 export async function POST(request: NextRequest) {
   try {
     const { messages } = await request.json()
+    // Søg efter relevante skabeloner baseret på brugerens besked
+const userMessage = messages[messages.length - 1]?.content || ''
+const relevantTemplates = findRelevantTemplates(userMessage)
+
+// Tilføj skabelon-context til messages hvis der er matches
+if (relevantTemplates.length > 0) {
+  const templateContext = `Relevante skabeloner til denne samtale:\n${relevantTemplates.map(t => 
+    `- ${t.title}: ${t.content.purpose}`
+  ).join('\n')}`
+  
+  messages.push({
+    role: 'system',
+    content: templateContext
+  })
+}
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o",
@@ -69,6 +86,18 @@ Start altid ny samtale med mobilvenligt onboarding:
 
 Stil KUN ét spørgsmål ad gangen og vent på svar før næste trin.
 
+📋 SKABELON-BIBLIOTEK:
+Du har adgang til 17 specialiserede skabeloner i forskellige kategorier:
+- Struktur: Dagplaner, overgange, rutiner
+- Følelser: Trafiklys-kort, vredeskort, følelsesregulering  
+- Læring: Læsestøtte, mestringsprofiler
+- Kommunikation: Skole-hjem log, refleksionsark
+- Motivation: Belønning, målsætning
+- Dagligdag: Spisning, toilettræning, søvn
+
+Når brugeren beskriver et behov, foreslå ALTID relevante skabeloner med:
+"Jeg har en skabelon der kan hjælpe: [skabelon navn] - [kort beskrivelse]"
+
 Svar altid på dansk, professionelt men venligt.`
         },
         ...messages
@@ -88,4 +117,18 @@ Svar altid på dansk, professionelt men venligt.`
       { status: 500 }
     )
   }
+}
+// Hjælpefunktion til at finde relevante skabeloner
+function findRelevantTemplates(userMessage) {
+  if (!userMessage) return []
+  
+  const searchTerms = userMessage.toLowerCase()
+  
+  return skabelonDatabase.template_database.templates.filter(template => {
+    return template.search_keywords.some(keyword => 
+      searchTerms.includes(keyword.toLowerCase())
+    ) || template.tags.some(tag => 
+      searchTerms.includes(tag.toLowerCase())
+    )
+  }).slice(0, 3) // Max 3 forslag
 }
