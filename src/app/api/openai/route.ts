@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
 // Import skabelon database
 import skabelonDatabase from '../../../data/skabeloner.json'
+import specialistPanel from '../../../data/specialist-panel.json'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -12,7 +13,9 @@ export async function POST(request: NextRequest) {
     const { messages } = await request.json()
     // Søg efter relevante skabeloner baseret på brugerens besked
 const userMessage = messages[messages.length - 1]?.content || ''
-const relevantTemplates = findRelevantTemplates(userMessage)
+const relevantTemplates = findRelevantTemplates(userMessage)S
+// Aktivér relevante specialister
+const activeSpecialists = activateSpecialists(userMessage)
 
 // Tilføj skabelon-context til messages hvis der er matches
 if (relevantTemplates.length > 0) {
@@ -23,6 +26,29 @@ if (relevantTemplates.length > 0) {
   messages.push({
     role: 'system',
     content: templateContext
+  })
+}
+// Tilføj specialist-context hvis der er aktive specialister
+if (activeSpecialists.length > 0) {
+  const specialistContext = `Aktive specialister til denne samtale:\n${activeSpecialists.map(s => 
+    `- ${s.name}: ${s.title} (${s.expertise_areas.join(', ')})`
+  ).join('\n')}\n\nDu skal svare som koordinator af disse specialister og give et evalueret sammenfatte svar.`
+  
+  messages.push({
+    role: 'system',
+    content: specialistContext
+  })
+}
+// Aktivér relevante specialister baseret på keywords
+function activateSpecialists(userMessage: string) {
+  if (!userMessage) return []
+  
+  const searchTerms = userMessage.toLowerCase()
+  
+  return specialistPanel.specialist_panel.specialists.filter(specialist => {
+    return specialist.activation_keywords.some(keyword => 
+      searchTerms.includes(keyword.toLowerCase())
+    )
   })
 }
 
