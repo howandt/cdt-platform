@@ -119,7 +119,7 @@ Svar altid på dansk, professionelt men venligt.`
   }
 }
 // Hjælpefunktion til at finde relevante skabeloner
-function findRelevantTemplates(userMessage) {
+function findRelevantTemplates(userMessage: string) {
   if (!userMessage) return []
   
   const searchTerms = userMessage.toLowerCase()
