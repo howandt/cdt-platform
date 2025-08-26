@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     const { messages } = await request.json()
     // Søg efter relevante skabeloner baseret på brugerens besked
 const userMessage = messages[messages.length - 1]?.content || ''
-const relevantTemplates = findRelevantTemplates(userMessage)S
+const relevantTemplates = findRelevantTemplates(userMessage)
 // Aktivér relevante specialister
 const activeSpecialists = activateSpecialists(userMessage)
 
