@@ -1,23 +1,7 @@
 import { NextResponse } from "next/server";
-import fs from "node:fs/promises";
-import path from "node:path";
 import OpenAI from "openai";
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
-
-async function loadPrompt() {
-  const p = path.join(
-    process.cwd(),
-    "packs",
-    "cdt-heidi-core-2025-09",
-    "prompt",
-    "CDT_Prompt_Heidi.md"
-  );
-  return fs.readFile(p, "utf8");
-}
-
-// GET = health (så /api/openai i browseren ikke giver 404)
+// Health check (GET)
 export async function GET() {
   return NextResponse.json({
     ok: true,
@@ -27,30 +11,30 @@ export async function GET() {
   });
 }
 
-export async function GET() {
-  return NextResponse.json({
-    ok: true,
-    service: "openai",
-    hasKey: !!process.env.OPENAI_API_KEY,
-    time: new Date().toISOString(),
-  });
-}
+// Chat (POST)
+export async function POST(req: Request) {
+  try {
+    // Læs body
+    const body = (await req.json().catch(() => ({}))) as { message?: string; sessionId?: string };
+    const message = (body?.message ?? "").toString();
 
-    const system = await loadPrompt();
-    const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    if (!message.trim()) {
+      return NextResponse.json({ error: "Missing 'message'" }, { status: 400 });
+    }
 
-    const r = await client.chat.completions.create({
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json({ error: "Missing OPENAI_API_KEY" }, { status: 500 });
+    }
+
+    // Kald OpenAI (Responses API)
+    const client = new OpenAI({ apiKey });
+    const resp = await client.responses.create({
       model: "gpt-4o-mini",
-      temperature: 0.3,
-      messages: [
-        { role: "system", content: system },
-        { role: "user", content: String(message) },
-      ],
+      input: `System: Du er Heidi, en CDT-tutor.\nBruger: ${message}`,
     });
 
-    const reply = (r as any)?.choices && Array.isArray((r as any).choices)
-  ? (r as any).choices[0]?.message?.content ?? ""
-  : "";
+    const reply = resp.output_text ?? "";
 
     return NextResponse.json({ ok: true, reply });
   } catch (err: unknown) {
@@ -58,4 +42,3 @@ export async function GET() {
     return NextResponse.json({ ok: false, error: msg }, { status: 500 });
   }
 }
-
