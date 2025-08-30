@@ -41,13 +41,15 @@ export default function ChatPage() {
   try {
     // ⬇️ VIGTIGT: vores API forventer { message: string } og svarer med { reply: string }
     const response = await fetch('/api/openai', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message: userMessage.content,
-        sessionId: 'ui-chat-001'
-      })
-    })
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  }, // 👈 vigtigt komma her
+  body: JSON.stringify({  
+    message: userMessage.content,
+    sessionId: 'ui-chat-001'
+  }),
+})
 
     const data = await response.json()
 
