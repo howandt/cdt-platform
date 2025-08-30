@@ -19,26 +19,22 @@ async function loadPrompt() {
 
 // GET = health (så /api/openai i browseren ikke giver 404)
 export async function GET() {
-  try {
-    const prompt = await loadPrompt();
-    return NextResponse.json({ ok: true, promptChars: prompt.length });
-  } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : "read fail";
-    return NextResponse.json({ ok: false, error: msg }, { status: 500 });
-  }
+  return NextResponse.json({
+    ok: true,
+    service: "openai",
+    hasKey: !!process.env.OPENAI_API_KEY,
+    time: new Date().toISOString(),
+  });
 }
 
-export async function POST(req: Request) {
-  try {
-    const { message = "" } = (await req.json().catch(() => ({}))) as {
-      message?: string;
-    };
-    if (!message.trim()) {
-      return NextResponse.json(
-        { error: "Missing 'message'" },
-        { status: 400 }
-      );
-    }
+export async function GET() {
+  return NextResponse.json({
+    ok: true,
+    service: "openai",
+    hasKey: !!process.env.OPENAI_API_KEY,
+    time: new Date().toISOString(),
+  });
+}
 
     const system = await loadPrompt();
     const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
