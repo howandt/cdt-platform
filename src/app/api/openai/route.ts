@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
+// Typer til chat-body (her indsætter du det)
+type ChatMessage = { role: "user" | "assistant" | "system"; content: string };
+type ChatBody = { message?: string; messages?: ChatMessage[] };
+
 // Health check (GET)
 export async function GET() {
   return NextResponse.json({
@@ -11,25 +15,28 @@ export async function GET() {
   });
 }
 
+
 // Chat (POST)
 export async function POST(req: Request) {
   try {
-    // Læs body – accepter både { message } og { messages: [{role,content}] }
-const body = (await req.json().catch(() => ({}))) as any;
+// Læs body – accepter både { message } og { messages: [{role,content}] }
+const body = (await req.json().catch(() => ({}))) as unknown as ChatBody;
 
 let message = "";
 if (typeof body?.message === "string") {
   message = body.message;
 } else if (Array.isArray(body?.messages)) {
-  // tag sidste user-besked
-  const lastUser = [...body.messages].reverse().find((m: any) => m?.role === "user" && typeof m?.content === "string");
+  const lastUser = [...body.messages].reverse()
+    .find((m) => m?.role === "user" && typeof m?.content === "string");
   message = lastUser?.content ?? "";
 }
 
 if (!message.trim()) {
-  return NextResponse.json({ error: "Missing 'message' (expected {message} or {messages:[{role,content}]})" }, { status: 400 });
+  return NextResponse.json(
+    { error: "Missing 'message' (expected {message} or {messages:[{role,content}]})" },
+    { status: 400 }
+  );
 }
-
 
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
