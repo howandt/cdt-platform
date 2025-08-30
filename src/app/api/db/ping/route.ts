@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdmin } from "../../../lib/db";
+import { supabaseAdmin } from "@/lib/db";
 
 export const runtime = "edge";
 
