@@ -14,13 +14,22 @@ export async function GET() {
 // Chat (POST)
 export async function POST(req: Request) {
   try {
-    // Læs body
-    const body = (await req.json().catch(() => ({}))) as { message?: string; sessionId?: string };
-    const message = (body?.message ?? "").toString();
+    // Læs body – accepter både { message } og { messages: [{role,content}] }
+const body = (await req.json().catch(() => ({}))) as any;
 
-    if (!message.trim()) {
-      return NextResponse.json({ error: "Missing 'message'" }, { status: 400 });
-    }
+let message = "";
+if (typeof body?.message === "string") {
+  message = body.message;
+} else if (Array.isArray(body?.messages)) {
+  // tag sidste user-besked
+  const lastUser = [...body.messages].reverse().find((m: any) => m?.role === "user" && typeof m?.content === "string");
+  message = lastUser?.content ?? "";
+}
+
+if (!message.trim()) {
+  return NextResponse.json({ error: "Missing 'message' (expected {message} or {messages:[{role,content}]})" }, { status: 400 });
+}
+
 
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
