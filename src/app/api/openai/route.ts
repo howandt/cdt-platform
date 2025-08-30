@@ -48,7 +48,10 @@ export async function GET() {
       ],
     });
 
-    const reply = r.choices?.[0]?.message?.content ?? "";
+    const reply = (r as any)?.choices && Array.isArray((r as any).choices)
+  ? (r as any).choices[0]?.message?.content ?? ""
+  : "";
+
     return NextResponse.json({ ok: true, reply });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : "unknown error";
