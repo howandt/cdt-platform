@@ -1,10 +1,10 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 
 const isPublicRoute = createRouteMatcher([
-  '/',
-  '/sign-in(.*)',
-  '/sign-up(.*)',
-  '/api/webhooks(.*)'
+  '/',               // forside
+  '/sign-in(.*)',    // login
+  '/sign-up(.*)',    // signup
+  '/api/webhooks(.*)'// webhooks (tilladt uden auth)
 ])
 
 export default clerkMiddleware(async (auth, req) => {
@@ -13,6 +13,9 @@ export default clerkMiddleware(async (auth, req) => {
   }
 })
 
+// VIGTIGT: udeluk /api, _next og statiske filer
 export const config = {
-  matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: [
+    '/((?!api|_next|.*\\..*).*)',
+  ],
 }
