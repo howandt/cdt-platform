@@ -1,160 +1,75 @@
-import { NextRequest, NextResponse } from 'next/server'
-import OpenAI from 'openai'
-// Import skabelon database
-import skabelonDatabase from '../../../data/skabeloner.json'
-import specialistPanel from '../../../data/specialist-panel.json'
+import { NextResponse } from "next/server";
+import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-})
+// Typer
+type ChatMessage = { role: "user" | "assistant" | "system"; content: string };
+type ChatBody = { message?: string; messages?: ChatMessage[]; sessionId?: string };
 
-export async function POST(request: NextRequest) {
+// GET: health
+export async function GET() {
+  return NextResponse.json({
+    ok: true,
+    service: "openai",
+    hasKey: !!process.env.OPENAI_API_KEY,
+    time: new Date().toISOString(),
+  });
+}
+
+// 🔹 Simpel session-hukommelse i RAM (nulstilles ved deploy/restart)
+const sessionMemory = new Map<string, { role: "user" | "assistant"; content: string }[]>();
+
+// POST: chat
+export async function POST(req: Request) {
   try {
-    const { messages } = await request.json()
-    // Søg efter relevante skabeloner baseret på brugerens besked
-const userMessage = messages[messages.length - 1]?.content || ''
-const relevantTemplates = findRelevantTemplates(userMessage)
-// Aktivér relevante specialister
-const activeSpecialists = activateSpecialists(userMessage)
+    // ——— input-parsing: accepter både {message} og {messages[]} ———
+    type ChatMessage = { role: "user" | "assistant" | "system"; content: string };
+    type ChatBody = { message?: string; messages?: ChatMessage[]; sessionId?: string };
 
-// Tilføj skabelon-context til messages hvis der er matches
-if (relevantTemplates.length > 0) {
-  const templateContext = `Relevante skabeloner til denne samtale:\n${relevantTemplates.map(t => 
-    `- ${t.title}: ${t.content.purpose}`
-  ).join('\n')}`
-  
-  messages.push({
-    role: 'system',
-    content: templateContext
-  })
-}
-// Tilføj specialist-context hvis der er aktive specialister
-if (activeSpecialists.length > 0) {
-  const specialistContext = `Aktive specialister til denne samtale:\n${activeSpecialists.map(s => 
-    `- ${s.name}: ${s.title} (${s.expertise_areas.join(', ')})`
-  ).join('\n')}\n\nDu skal svare som koordinator af disse specialister og give et evalueret sammenfatte svar.`
-  
-  messages.push({
-    role: 'system',
-    content: specialistContext
-  })
-}
-// Aktivér relevante specialister baseret på keywords
-function activateSpecialists(userMessage: string) {
-  if (!userMessage) return []
-  
-  const searchTerms = userMessage.toLowerCase()
-  
-  return specialistPanel.specialist_panel.specialists.filter(specialist => {
-    return specialist.activation_keywords.some(keyword => 
-      searchTerms.includes(keyword.toLowerCase())
-    )
-  })
-}
+    const body = (await req.json().catch(() => ({}))) as ChatBody;
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: [
-        {
-          role: "system",
-content: `🧠 CDT-Heidi v2025_08
+    let message = "";
+    if (typeof body?.message === "string") {
+      message = body.message;
+    } else if (Array.isArray(body?.messages)) {
+      const lastUser = [...body.messages].reverse()
+        .find((m) => m?.role === "user" && typeof m?.content === "string");
+      message = lastUser?.content ?? "";
+    }
 
-Du er Heidi, en adaptiv AI-tutor med ekspertise i specialpædagogik, diagnoseforståelse og inklusion. Du fungerer som træner, sparringspartner og vejleder for voksne, der arbejder med børn med diagnoser.
+    if (!message.trim()) {
+      return NextResponse.json(
+        { ok: false, error: "Missing 'message' (send {message} eller {messages:[{role,content}]})" },
+        { status: 400 }
+      );
+    }
 
-Din tilgang er:
-- Klart formuleret og praksisnær
-- Uden floskler – men med empati  
-- Dialogisk og reflekterende
-- Dynamisk tilpasset brugerens behov og viden
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json({ ok: false, error: "Missing OPENAI_API_KEY" }, { status: 500 });
+    }
 
-📘 CDT's tredobbelte rolle:
-1. Levende interaktiv fagbog
-2. Træningsmiljø for CDA-brug
-3. Kommunikationslaboratorium med rollespil og sprogtræning
+    // ——— session-hukommelse ———
+    const sessionId = body?.sessionId || "default";
+    const history = sessionMemory.get(sessionId) || [];
+    history.push({ role: "user", content: message }); // tilføj brugerens besked
 
-🎯 LÆRINGSMODUS MED CASE-INTEGRATION
-Du kan:
-1. Forklare kort relevant teori, hvis brugeren ønsker det
-2. Vise en konkret case ud fra diagnose, tema eller sværhedsgrad
-3. Stille refleksionsspørgsmål og analysere svaret
-4. Give feedback (effektiv, delvis, problematisk) med begrundelse
-5. Tilbyde forslag til forbedring eller spørge: "Vil du prøve en anden tilgang?"
-6. Lade brugeren vælge næste skridt: ny case, quiz, teori eller rollespil
+    // ——— kald OpenAI med hele historikken ———
+    const client = new OpenAI({ apiKey });
+    const resp = await client.responses.create({
+      model: "gpt-4o-mini",
+      input: history.map((m) => `${m.role.toUpperCase()}: ${m.content}`).join("\n"),
+    });
 
-Case-feedback struktureres som:
-- Effektivt: "God løsning – det virker fordi..."
-- Delvist: "Det kan virke, men hvilke barrierer kan opstå?" 
-- Problematisk: "Det kan give udfordringer – hvad kunne være bedre?"
+    const reply = resp.output_text ?? "(tomt svar)";
 
-👥 BRUGERTYPER & TILPASNING
-Tilpas indhold ud fra rolle:
-- 👨‍👩‍👦 Forælder: Hjemmestruktur, samarbejde med skole, følelser
-- 🎓 Lærer: Klasseledelse, differentiering, inklusion
-- 💇‍♀️ Pæd. assistent: Sansetilpasning, tryghed i hverdagen
-- 👩‍⚕️ Specialist: Diagnosemodeller, komorbiditet, forskning
+    // ——— gem AI-svaret i hukommelsen ———
+    history.push({ role: "assistant", content: reply });
+    sessionMemory.set(sessionId, history);
 
-🧰 INTEGRATION AF VÆRKTØJER
-Foreslå altid kontekstuelle værktøjer:
-- Visuelle: Skemaer, piktogrammer, følelseskort
-- Sensoriske: Vægt, tyggeting, støjreduktion
-- Miljø: Lys, struktur, støjzoner
-
-Hold svar korte (max 200 ord) og strukturerede med korte afsnit. Brug kun 2-3 konkrete strategier ad gangen.
-
-📲 ONBOARDING FLOW:
-Start altid ny samtale med mobilvenligt onboarding:
-1. Spørg om sprog (Dansk/Engelsk/Andet)
-2. Spørg om navn 
-3. Spørg om rolle (Forælder/Lærer/Pædagog/Specialist)
-4. Spørg om svarlængde (Kort/Dybdegående)
-5. Spørg om diagnose fokus (ADHD/Autisme/Angst/Tourette's/Generel)
-6. Spørg hvad de vil starte med (Teori/Case/Quiz/Rollespil)
-
-Stil KUN ét spørgsmål ad gangen og vent på svar før næste trin.
-
-📋 SKABELON-BIBLIOTEK:
-Du har adgang til 17 specialiserede skabeloner i forskellige kategorier:
-- Struktur: Dagplaner, overgange, rutiner
-- Følelser: Trafiklys-kort, vredeskort, følelsesregulering  
-- Læring: Læsestøtte, mestringsprofiler
-- Kommunikation: Skole-hjem log, refleksionsark
-- Motivation: Belønning, målsætning
-- Dagligdag: Spisning, toilettræning, søvn
-
-Når brugeren beskriver et behov, foreslå ALTID relevante skabeloner med:
-"Jeg har en skabelon der kan hjælpe: [skabelon navn] - [kort beskrivelse]"
-
-Svar altid på dansk, professionelt men venligt.`
-        },
-        ...messages
-      ],
-      max_tokens: 300,
-      temperature: 0.7,
-    })
-
-    return NextResponse.json({
-      message: completion.choices[0].message.content
-    })
-
-  } catch (error) {
-    console.error('OpenAI API error:', error)
-    return NextResponse.json(
-      { error: 'Der opstod en fejl ved at kontakte AI assistenten' },
-      { status: 500 }
-    )
+    return NextResponse.json({ ok: true, reply });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : "unknown error";
+    return NextResponse.json({ ok: false, error: msg }, { status: 500 });
   }
 }
-// Hjælpefunktion til at finde relevante skabeloner
-function findRelevantTemplates(userMessage: string) {
-  if (!userMessage) return []
-  
-  const searchTerms = userMessage.toLowerCase()
-  
-  return skabelonDatabase.template_database.templates.filter(template => {
-    return template.search_keywords.some(keyword => 
-      searchTerms.includes(keyword.toLowerCase())
-    ) || template.tags.some(tag => 
-      searchTerms.includes(tag.toLowerCase())
-    )
-  }).slice(0, 3) // Max 3 forslag
-}
+

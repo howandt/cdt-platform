@@ -1,0 +1,10 @@
+cdt_id: cdt-heidi-core
+version: "2025-09"
+
+prompt: prompt/CDT_Prompt_Heidi.md
+
+databanks:
+  cases: cases/cases.json
+  templates: templates/index.json
+
+relations: []

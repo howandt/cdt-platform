@@ -18,70 +18,57 @@ export default function ChatPage() {
   const [isLoading, setIsLoading] = useState(false)
 
   const sendMessage = async () => {
-    // Developer bypass
-if (inputMessage.trim() === 'how0839') {
-  alert('🔧 Developer Mode Aktiveret! Ubegrænset adgang.')
-  // Reset trial timer
-  localStorage.setItem('trialStartTime', Date.now().toString())
-  setInputMessage('')
-  return
-}
-
-if (isTrialExpired) {
-  alert('Din trial er udløbet. Opgrader til Basic eller Pro for fortsat adgang.')
-  return
-}
-    
-    if (!inputMessage.trim()) return
-
-    const userMessage = {
-      role: 'user',
-      content: inputMessage
-    }
-
-    setMessages(prev => [...prev, userMessage])
+  // Developer bypass
+  if (inputMessage.trim() === 'how0839') {
+    alert('🔧 Developer Mode Aktiveret! Ubegrænset adgang.')
+    localStorage.setItem('trialStartTime', Date.now().toString())
     setInputMessage('')
-    setIsLoading(true)
+    return
+  }
 
-    try {
-      // Send til vores OpenAI API
-      const response = await fetch('/api/openai', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          messages: [...messages, userMessage]
-        }),
-      })
+  if (isTrialExpired) {
+    alert('Din trial er udløbet. Opgrader til Basic eller Pro for fortsat adgang.')
+    return
+  }
 
-      const data = await response.json()
+  if (!inputMessage.trim()) return
 
-      if (response.ok) {
-        const aiResponse = {
-          role: 'assistant',
-          content: data.message
-        }
-        setMessages(prev => [...prev, aiResponse])
-      } else {
-        // Fejl håndtering
-        const errorResponse = {
-          role: 'assistant',
-          content: 'Undskyld, der opstod en fejl. Prøv venligst igen.'
-        }
-        setMessages(prev => [...prev, errorResponse])
-      }
-    } catch (error) {
-      console.error('Chat error:', error)
-      const errorResponse = {
-        role: 'assistant',
-        content: 'Undskyld, der opstod en netværksfejl. Prøv venligst igen.'
-      }
+  const userMessage = { role: 'user', content: inputMessage }
+  setMessages(prev => [...prev, userMessage])
+  setInputMessage('')
+  setIsLoading(true)
+
+  try {
+    // ⬇️ VIGTIGT: vores API forventer { message: string } og svarer med { reply: string }
+    const response = await fetch('/api/openai', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  }, // 👈 vigtigt komma her
+  body: JSON.stringify({  
+    message: userMessage.content,
+    sessionId: 'ui-chat-001'
+  }),
+})
+
+    const data = await response.json()
+
+    if (response.ok) {
+      const aiResponse = { role: 'assistant', content: data.reply || '(tomt svar)' }
+      setMessages(prev => [...prev, aiResponse])
+    } else {
+      const errorResponse = { role: 'assistant', content: data?.error || 'Undskyld, der opstod en fejl. Prøv igen.' }
       setMessages(prev => [...prev, errorResponse])
     }
-
+  } catch (error) {
+    console.error('Chat error:', error)
+    const errorResponse = { role: 'assistant', content: 'Undskyld, der opstod en netværksfejl. Prøv venligst igen.' }
+    setMessages(prev => [...prev, errorResponse])
+  } finally {
     setIsLoading(false)
   }
+}
+
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
