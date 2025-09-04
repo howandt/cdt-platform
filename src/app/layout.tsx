@@ -4,6 +4,9 @@ import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
 import { TrialProvider } from '@/contexts/TrialContext'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
