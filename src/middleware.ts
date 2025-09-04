@@ -1,4 +1,5 @@
 // src/middleware.ts
+import { NextResponse } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 // Offentlige ruter (ingen login)
@@ -10,12 +11,13 @@ const isPublicRoute = createRouteMatcher([
 ]);
 
 export default clerkMiddleware((auth, req) => {
+  // Offentlige ruter: giv bare lov at fortsætte
   if (isPublicRoute(req)) {
-    // Tillad uden login
-    return;
+    return NextResponse.next();
   }
-  // Alle andre ruter beskyttes som før (inkl. 30-min logik i din app)
+  // Alt andet: beskyt som normalt
   auth().protect();
+  return NextResponse.next();
 });
 
 export const config = {
