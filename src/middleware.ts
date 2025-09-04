@@ -1,16 +1,24 @@
 // src/middleware.ts
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-export default clerkMiddleware({
-  // Kun disse ruter er offentlige; alt andet forbliver beskyttet som før
-  publicRoutes: ["/", "/api/ping", "/api/heidi-pack", "/heidi"],
+// Offentlige ruter (ingen login)
+const isPublicRoute = createRouteMatcher([
+  "/",
+  "/api/ping",
+  "/api/heidi-pack",
+  "/heidi",
+]);
+
+export default clerkMiddleware((auth, req) => {
+  if (isPublicRoute(req)) {
+    // Tillad uden login
+    return;
+  }
+  // Alle andre ruter beskyttes som før (inkl. 30-min logik i din app)
+  auth().protect();
 });
 
-// Matcher: alle app-sider og alle API-ruter, men ikke _next og statiske filer
 export const config = {
-  matcher: [
-    "/((?!.+\\.[\\w]+$|_next).*)",
-    "/",
-    "/(api)(.*)",
-  ],
+  // Match alle app- og API-ruter, men ikke _next og statiske filer
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api)(.*)"],
 };
