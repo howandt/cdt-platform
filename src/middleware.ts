@@ -2,7 +2,7 @@
 import { NextResponse } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-// Offentlige ruter (ingen login)
+// Offentlige ruter
 const isPublicRoute = createRouteMatcher([
   "/",
   "/api/ping",
@@ -10,16 +10,16 @@ const isPublicRoute = createRouteMatcher([
   "/heidi",
 ]);
 
-export default clerkMiddleware((auth, req) => {
-  // Offentlige ruter: giv bare lov at fortsætte
+export default clerkMiddleware(async (auth, req) => {
+  // Tillad offentlige ruter
   if (isPublicRoute(req)) {
     return NextResponse.next();
   }
-  // Alt andet: beskyt som normalt
-  return auth().protect();
+  // Beskyt alle andre
+  const a = await auth();       // ← await det asynkrone auth()
+  return a.protect();           // ← nu findes .protect()
 });
 
 export const config = {
-  // Match alle app- og API-ruter, men ikke _next og statiske filer
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api)(.*)"],
 };
