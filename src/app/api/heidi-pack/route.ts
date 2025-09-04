@@ -5,6 +5,15 @@ export async function GET(req: Request) {
   const url  = process.env.SUPABASE_URL!;
   const anon = process.env.SUPABASE_ANON_KEY!;
   const sb = createClient(url, anon, { auth: { persistSession: false } });
+  // --- DEBUG (midlertidigt) ---
+const sp = new URL(req.url).searchParams;
+if (sp.get("debug") === "env") {
+  let headOk = false, headErr = "";
+  try { const r = await fetch(process.env.SUPABASE_URL!, { method: "HEAD" }); headOk = r.ok; } catch (e:any) { headErr = String(e?.message || e); }
+  return NextResponse.json({ hasUrl: !!process.env.SUPABASE_URL, hasAnon: !!process.env.SUPABASE_ANON_KEY, headOk, headErr });
+}
+// --- /DEBUG ---
+
 
   // læs query-parametre
   const sp = new URL(req.url).searchParams;
