@@ -1,9 +1,24 @@
 "use client";
+type HeidiResponse = {
+  result?: {
+    case?: {
+      problem?: string;
+      eval?: {
+        delvist?: string;
+        effektivt?: string;
+        problematisk?: string;
+        brug_i_morgen?: string;
+      };
+    };
+    quizzes?: Array<{ question?: string; options?: string[] }>;
+    theory?: Array<{ title?: string; body_md?: string }>;
+  };
+};
 
 import { useEffect, useState } from "react";
 
 export default function HeidiPage() {
-  const [data, setData] = useState<Record<string, unknown> | null>(null);
+  const [data, setData] = useState<HeidiResponse | null>(null);
   const [err, setErr] = useState<string>("");
 
   // standard-parametre (kan ændres i inputfelterne)
@@ -24,7 +39,7 @@ export default function HeidiPage() {
       });
       const res = await fetch(`/api/heidi-pack?` + params.toString(), { cache: "no-store" });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const json = await res.json();
+      const json = (await res.json()) as HeidiResponse;
       setData(json);
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : String(e);
