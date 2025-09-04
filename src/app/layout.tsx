@@ -23,6 +23,9 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="da">
         <body className={inter.className}>
+          <a href="/heidi" style={{ position: "fixed", bottom: 12, right: 12, fontSize: 12, opacity: 0.6 }}>
+  Heidi demo
+</a>
           <TrialProvider>
             {children}
           </TrialProvider>
