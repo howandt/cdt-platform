@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 export default function HeidiPage() {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<Record<string, unknown> | null>(null);
   const [err, setErr] = useState<string>("");
 
   // standard-parametre (kan ændres i inputfelterne)
@@ -26,8 +26,9 @@ export default function HeidiPage() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = await res.json();
       setData(json);
-    } catch (e: any) {
-      setErr(String(e?.message || e));
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : String(e);
+      setErr(msg);
     }
   }
 
