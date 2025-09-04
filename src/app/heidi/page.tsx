@@ -26,6 +26,7 @@ export default function HeidiPage() {
   const [theme, setTheme] = useState("Struktur");
   const [level, setLevel] = useState("Let");
   const [q, setQ] = useState("Elev har svært");
+  const LS_KEY = "heidi:last-v1";
 
   async function load() {
     try {
@@ -41,6 +42,16 @@ export default function HeidiPage() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = (await res.json()) as HeidiResponse;
       setData(json);
+
+      // gem snapshot til resume
+try {
+  const snapshot = {
+    when: new Date().toISOString(),
+    input: { diagnose, theme, level, q },
+    result: (json as HeidiResponse)?.result ?? null,
+  };
+  localStorage.setItem(LS_KEY, JSON.stringify(snapshot));
+} catch {}
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : String(e);
       setErr(msg);
@@ -48,10 +59,24 @@ export default function HeidiPage() {
   }
 
   useEffect(() => {
-    // hent automatisk ved første visning
-    load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (raw) {
+      const snap = JSON.parse(raw);
+      if (snap?.input) {
+        setDiagnose(snap.input.diagnose ?? "ADHD");
+        setTheme(snap.input.theme ?? "Struktur");
+        setLevel(snap.input.level ?? "Let");
+        setQ(snap.input.q ?? "Elev har svært");
+      }
+      if (snap?.result) {
+        setData({ result: snap.result });
+      }
+    }
+  } catch {}
+  load();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
   // ... resten uændret
 
