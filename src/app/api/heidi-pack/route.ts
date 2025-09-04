@@ -1,3 +1,6 @@
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
@@ -9,23 +12,14 @@ export async function GET(req: Request) {
   // Definér sp KUN én gang
   const sp = new URL(req.url).searchParams;
 
-  // --- DEBUG (midlertidigt) ---
-  if (sp.get("debug") === "env") {
-    let headOk = false, headErr = "";
-    try {
-      const r = await fetch(process.env.SUPABASE_URL!, { method: "HEAD" });
-      headOk = r.ok;
-    } catch (e: unknown) {
-      headErr = e instanceof Error ? e.message : String(e);
-    }
-    return NextResponse.json({
-      hasUrl: !!process.env.SUPABASE_URL,
-      hasAnon: !!process.env.SUPABASE_ANON_KEY,
-      headOk,
-      headErr
-    });
-  }
-  // --- /DEBUG ---
+  // --- DEBUG (kun env, ingen fetch) ---
+if (sp.get("debug") === "env") {
+  return NextResponse.json({
+    hasUrl: !!process.env.SUPABASE_URL,
+    hasAnon: !!process.env.SUPABASE_ANON_KEY
+  });
+}
+// --- /DEBUG ---
 
   // læs query-parametre
   const diagnose = sp.get("diagnose") ?? "";
