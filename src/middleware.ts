@@ -16,8 +16,7 @@ export default clerkMiddleware((auth, req) => {
     return NextResponse.next();
   }
   // Alt andet: beskyt som normalt
-  auth().protect();
-  return NextResponse.next();
+  return auth().protect();
 });
 
 export const config = {
