@@ -38,8 +38,14 @@ export async function GET(req: Request) {
     }
 
     return NextResponse.json({ ok: true, input: { diagnose, theme, level, q }, result: data ?? [] });
-  } catch (e: any) {
-    return NextResponse.json({ ok: false, where: "catch", error: String(e?.message || e) }, { status: 500 });
+  } catch (e: unknown) {
+  let msg: string;
+  if (e instanceof Error) {
+    msg = e.message;
+  } else {
+    msg = String(e);
   }
+  return NextResponse.json({ ok: false, where: "catch", error: msg }, { status: 500 });
+}
 }
 
