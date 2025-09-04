@@ -10,14 +10,18 @@ const isPublicRoute = createRouteMatcher([
   "/heidi",
 ]);
 
-export default clerkMiddleware((auth, req) => {
-  // Tillad public routes
-  if (isPublicRoute(req)) return NextResponse.next();
+export default clerkMiddleware(async (auth, req) => {
+  // Tillad public routes uden login
+  if (isPublicRoute(req)) {
+    return NextResponse.next();
+  }
 
   // For alle andre ruter: kræv login
-  const { userId } = auth(); // v5: synkron i middleware
+  const a = await auth();        // ← VIGTIGT: await
+  const { userId } = a;
+
   if (!userId) {
-    // Redirect til sign-in (bevar destination)
+    // Simpel redirect til sign-in og bevar destination
     const url = new URL("/sign-in", req.url);
     url.searchParams.set("redirect_url", req.url);
     return NextResponse.redirect(url);
@@ -26,7 +30,7 @@ export default clerkMiddleware((auth, req) => {
   return NextResponse.next();
 });
 
+// Match alle app- og API-ruter, men ikke _next og statiske filer
 export const config = {
-  // Match alle app- og API-ruter, men ikke _next og statiske filer
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api)(.*)"],
 };
