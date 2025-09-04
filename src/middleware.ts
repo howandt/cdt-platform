@@ -1,10 +1,16 @@
+// src/middleware.ts
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
 export default clerkMiddleware({
-  publicRoutes: ["/", "/api/ping", "/api/heidi-pack", "/heidi"],  // ← tilføjet
+  // Kun disse ruter er offentlige; alt andet forbliver beskyttet som før
+  publicRoutes: ["/", "/api/ping", "/api/heidi-pack", "/heidi"],
 });
 
+// Matcher: alle app-sider og alle API-ruter, men ikke _next og statiske filer
 export const config = {
-  matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api)(.*)"],
+  matcher: [
+    "/((?!.+\\.[\\w]+$|_next).*)",
+    "/",
+    "/(api)(.*)",
+  ],
 };
-
