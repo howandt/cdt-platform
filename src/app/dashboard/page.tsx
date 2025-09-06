@@ -3,24 +3,12 @@ import { UserButton, useUser } from '@clerk/nextjs'
 import { BookOpen, MessageCircle, Clock, CreditCard, ArrowLeft, AlertTriangle } from 'lucide-react'
 import Link from 'next/link'
 import { useTrial } from '@/contexts/TrialContext'
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 
 export default function Dashboard() {
   const { user } = useUser()
   const { timeLeft, isTrialActive, isTrialExpired, startTrial, formatTime } = useTrial()
-  const router = useRouter()
-
-  useEffect(() => {
-    router.push("https://cdt-training.vercel.app/trial")
-  }, [])
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <p className="text-lg text-gray-700">Viderestiller dig til CDT Læring ...</p>
-    </div>
-  )
-}
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
@@ -48,7 +36,6 @@ export default function Dashboard() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
         {/* Trial Expired Warning */}
         {isTrialExpired && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
@@ -73,7 +60,6 @@ export default function Dashboard() {
 
         {/* Status Cards */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
-          
           {/* Trial Status */}
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center mb-4">
@@ -83,7 +69,6 @@ export default function Dashboard() {
               }`} />
               <h3 className="ml-3 text-lg font-semibold">Trial Status</h3>
             </div>
-            
             {isTrialExpired ? (
               <>
                 <p className="text-red-600 mb-4 font-semibold">Trial udløbet</p>
@@ -148,7 +133,6 @@ export default function Dashboard() {
         <div className="bg-white rounded-lg shadow p-6 mb-8">
           <h2 className="text-2xl font-bold mb-6">Kom i gang</h2>
           <div className="grid md:grid-cols-2 gap-6">
-            
             {/* AI Chat */}
             <div className={`border border-gray-200 rounded-lg p-6 transition-colors ${
               isTrialExpired ? 'opacity-50' : 'hover:border-blue-300'
@@ -159,27 +143,27 @@ export default function Dashboard() {
                 Chat med vores specialpædagogik AI om specifikke udfordringer og få personaliserede råd.
               </p>
               {isTrialExpired ? (
-  <div className="space-y-2">
-    <button className="w-full bg-gray-400 text-white px-6 py-2 rounded-lg cursor-not-allowed">
-      Trial Udløbet
-    </button>
-    <button 
-      onClick={() => {
-        localStorage.setItem('trialStartTime', Date.now().toString())
-        window.location.reload()
-      }}
-      className="w-full bg-green-600 text-white px-4 py-1 text-sm rounded hover:bg-green-700"
-    >
-      🔧 Developer Reset
-    </button>
-  </div>
-) : (
-  <Link href="/chat">
-    <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-      Start Chat
-    </button>
-  </Link>
-)}
+                <div className="space-y-2">
+                  <button className="w-full bg-gray-400 text-white px-6 py-2 rounded-lg cursor-not-allowed">
+                    Trial Udløbet
+                  </button>
+                  <button 
+                    onClick={() => {
+                      localStorage.setItem('trialStartTime', Date.now().toString())
+                      window.location.reload()
+                    }}
+                    className="w-full bg-green-600 text-white px-4 py-1 text-sm rounded hover:bg-green-700"
+                  >
+                    🔧 Developer Reset
+                  </button>
+                </div>
+              ) : (
+                <Link href="/chat">
+                  <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                    Start Chat
+                  </button>
+                </Link>
+              )}
             </div>
 
             {/* Resources */}
@@ -195,14 +179,6 @@ export default function Dashboard() {
                 </button>
               </Link>
             </div>
-          </div>
-        </div>
-
-        {/* Recent Activity */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-2xl font-bold mb-6">Seneste Aktivitet</h2>
-          <div className="text-center py-8 text-gray-500">
-            <p>Ingen aktivitet endnu. Start med at bruge AI chatten!</p>
           </div>
         </div>
       </main>
