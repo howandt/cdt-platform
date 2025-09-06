@@ -3,10 +3,17 @@ import { UserButton, useUser } from '@clerk/nextjs'
 import { BookOpen, MessageCircle, Clock, CreditCard, ArrowLeft, AlertTriangle } from 'lucide-react'
 import Link from 'next/link'
 import { useTrial } from '@/contexts/TrialContext'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function Dashboard() {
   const { user } = useUser()
   const { timeLeft, isTrialActive, isTrialExpired, startTrial, formatTime } = useTrial()
+  const router = useRouter()
+  
+useEffect(() => {
+  router.push("https://cdt-training.vercel.app")
+}, [])
 
   return (
     <div className="min-h-screen bg-gray-50">
