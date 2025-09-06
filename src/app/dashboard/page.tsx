@@ -10,14 +10,20 @@ export default function Dashboard() {
   const { user } = useUser()
   const { timeLeft, isTrialActive, isTrialExpired, startTrial, formatTime } = useTrial()
   const router = useRouter()
-  
+
 useEffect(() => {
-  router.push("https://cdt-training.vercel.app")
+  router.push("https://cdt-training.vercel.app/trial")
 }, [])
 
   return (
+    return (
+  <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <p className="text-lg text-gray-700">Viderestiller dig til CDT Læring ...</p>
+  </div>
+)
+}
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
+      {/* Header */}S
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
