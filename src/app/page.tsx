@@ -14,11 +14,11 @@ export default function HomePage() {
           Din levende, interaktive fagbog til specialpædagogik – for forældre, lærere, pædagoger og specialister
         </p>
         <div className="flex justify-center gap-4 mt-8 flex-wrap">
-          <Link href="/dashboard">
-            <Button className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg text-lg">
-              Start Gratis Test
-            </Button>
-          </Link>
+          <Link href="/start">
+  <Button className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg text-lg">
+    Start Gratis Test
+  </Button>
+</Link>
           <Link href="#pricing">
             <Button variant="outline" className="text-white border-white">
               Se Pakker
@@ -54,9 +54,9 @@ export default function HomePage() {
             <h3 className="text-xl font-semibold mb-2">Gratis Trial</h3>
             <p className="text-gray-700 mb-2">30 minutter</p>
             <p className="text-gray-500 mb-4">Test hele Pro-pakken gratis</p>
-            <Link href="/dashboard">
-              <Button className="bg-green-500 hover:bg-green-600 w-full">Start Trial</Button>
-            </Link>
+            <Link href="/start">
+  <Button className="bg-green-500 hover:bg-green-600 w-full">Start Trial</Button>
+</Link>
           </div>
 
           {/* Basic Plan */}
