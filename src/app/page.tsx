@@ -32,26 +32,26 @@ export default function HomePage() {
       <section className="py-12 px-6 max-w-5xl mx-auto grid md:grid-cols-3 gap-6 text-center">
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold mb-2">AI-Assisteret Vejledning</h3>
-          <p className="text-gray-600">Få personaliserede råd og strategier baseret på specifikke situationer og behov.</p>
+          <p className="text-gray-800">Få personaliserede råd og strategier baseret på specifikke situationer og behov.</p>
         </div>
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold mb-2">Fællesskab & Support</h3>
-          <p className="text-gray-600">Tilslut dig et netværk af professionelle og forældre, der deler erfaringer og støtter hinanden.</p>
+          <p className="text-gray-800">Tilslut dig et netværk af professionelle og forældre, der deler erfaringer og støtter hinanden.</p>
         </div>
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-xl font-semibold mb-2">Evidensbaseret Indhold</h3>
-          <p className="text-gray-600">Adgang til opdateret forskning og best practices indenfor specialpædagogik.</p>
+          <p className="text-gray-800">Adgang til opdateret forskning og best practices indenfor specialpædagogik.</p>
         </div>
       </section>
 
       {/* Pricing Plans */}
       <section id="pricing" className="bg-white py-16 px-6">
-        <h2 className="text-3xl font-bold text-center mb-8">Vælg Din Plan</h2>
-        <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6">
+        <h2 className="text-3xl font-bold text-center mb-8 <section id="pricing" className="bg-white py-16 px-6">
+        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">Vælg Din Plan</h2>
 
           {/* Gratis Trial */}
           <div className="border border-green-400 rounded-lg p-6 text-center">
-            <h3 className="text-xl font-semibold mb-2">Gratis Trial</h3>
+            <h3 className="text-xl font-semibold mb-2 text-gray-800">Gratis Trial</h3>
             <p className="text-gray-700 mb-2">30 minutter</p>
             <p className="text-gray-500 mb-4">Test hele Pro-pakken gratis</p>
             <Link href="/start">
@@ -61,7 +61,7 @@ export default function HomePage() {
 
           {/* Basic Plan */}
           <div className="border border-blue-400 rounded-lg p-6 text-center">
-            <h3 className="text-xl font-semibold mb-2">Basic</h3>
+            <h3 className="text-xl font-semibold mb-2 text-gray-800">Basic</h3>
             <p className="text-gray-700 mb-2">$50 engangsbetaling</p>
             <p className="text-gray-500 mb-4">Begrænset tokens + refill mulighed</p>
             <Button className="bg-blue-500 hover:bg-blue-600 w-full">Køb Basic</Button>
@@ -69,7 +69,7 @@ export default function HomePage() {
 
           {/* Pro Plan */}
           <div className="border border-purple-500 rounded-lg p-6 text-center bg-purple-50">
-            <h3 className="text-xl font-semibold mb-2">Pro</h3>
+            <h3 className="text-xl font-semibold mb-2 text-gray-800">Pro</h3>
             <p className="text-gray-700 mb-2">$25 / måned</p>
             <p className="text-gray-500 mb-4">Ubegrænset adgang til alt</p>
             <Button className="bg-purple-600 hover:bg-purple-700 w-full">Start Pro</Button>
