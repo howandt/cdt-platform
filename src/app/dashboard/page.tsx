@@ -27,9 +27,11 @@ export default function Dashboard() {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-gray-700">Velkommen, {user?.firstName || 'bruger'}!</span>
-              <UserButton />
-            </div>
+  <span className="text-gray-700">
+    Velkommen, {user?.firstName || (typeof window !== 'undefined' && JSON.parse(localStorage.getItem('cdtUser') || '{}')?.name) || 'bruger'}!
+  </span>
+  <UserButton />
+</div>
           </div>
         </div>
       </header>
