@@ -58,22 +58,6 @@ export default function Dashboard() {
             </button>
           </div>
 
-          {/* AI Chat */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center mb-4">
-              <MessageCircle className="h-8 w-8 text-green-500" />
-              <h3 className="ml-3 text-lg font-semibold">Brug i dag</h3>
-            </div>
-            <p className="text-gray-600 mb-4">0 AI samtaler brugt</p>
-            <p className="text-sm text-gray-500">Start en samtale nedenfor</p>
-            <Link href="/chat">
-              <button className="mt-4 w-full bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                Start Chat
-              </button>
-            </Link>
-          </div>
-        </div>
-
         {/* Ressourcer */}
         <div className="bg-white rounded-lg shadow p-6 mb-8">
           <h2 className="text-2xl font-bold mb-6">Ressourcer</h2>
