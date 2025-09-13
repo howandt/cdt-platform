@@ -92,7 +92,7 @@ export default function StartPage() {
           </div>
 
           <Button
-            className="w-full mt-4"
+            className="w-full mt-4 text-gray-800"
             onClick={handleStart}
           >
             Start Test
