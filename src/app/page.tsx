@@ -39,7 +39,7 @@ export default function HomePage() {
           <p className="text-gray-800">Tilslut dig et netværk af professionelle og forældre, der deler erfaringer og støtter hinanden.</p>
         </div>
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-xl font-semibold mb-2">Evidensbaseret Indhold</h3>
+          <h3 className="text-xl font-semibold mb-2 text-gray-800">Evidensbaseret Indhold</h3>
           <p className="text-gray-800">Adgang til opdateret forskning og best practices indenfor specialpædagogik.</p>
         </div>
       </section>
