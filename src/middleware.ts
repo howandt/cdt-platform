@@ -2,26 +2,26 @@
 import { NextResponse } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-// Offentlige ruter (ingen login)
+// Offentlige ruter (ingen login krævet)
 const isPublicRoute = createRouteMatcher([
   "/",
+  "/start",
+  "/dashboard",
   "/api/ping",
   "/api/heidi-pack",
   "/heidi",
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
-  // Tillad public routes uden login
+  // Tillad adgang til offentlige ruter uden login
   if (isPublicRoute(req)) {
     return NextResponse.next();
   }
 
   // For alle andre ruter: kræv login
-  const a = await auth();        // ← VIGTIGT: await
-  const { userId } = a;
+  const { userId } = await auth();
 
   if (!userId) {
-    // Simpel redirect til sign-in og bevar destination
     const url = new URL("/sign-in", req.url);
     url.searchParams.set("redirect_url", req.url);
     return NextResponse.redirect(url);
@@ -30,7 +30,7 @@ export default clerkMiddleware(async (auth, req) => {
   return NextResponse.next();
 });
 
-// Match alle app- og API-ruter, men ikke _next og statiske filer
+// Matcher alt undtagen statiske filer
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api)(.*)"],
 };
