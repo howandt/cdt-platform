@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react'
 import { UserButton, useUser } from '@clerk/nextjs'
-import { useTrial } from '@/contexts/TrialContext'
 import { BookOpen, Send, ArrowLeft, MessageCircle, Bot } from 'lucide-react'
 import Link from 'next/link'
 

@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
-import { TrialProvider } from '@/contexts/TrialContext'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -26,9 +25,7 @@ export default function RootLayout({
           <a href="/heidi" style={{ position: "fixed", bottom: 12, right: 12, fontSize: 12, opacity: 0.6 }}>
   Heidi demo
 </a>
-          <TrialProvider>
-            {children}
-          </TrialProvider>
+
         </body>
       </html>
     </ClerkProvider>
