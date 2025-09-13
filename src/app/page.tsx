@@ -31,11 +31,11 @@ export default function HomePage() {
       {/* Features */}
       <section className="py-12 px-6 max-w-5xl mx-auto grid md:grid-cols-3 gap-6 text-center">
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-xl font-semibold mb-2">AI-Assisteret Vejledning</h3>
+          <h3 className="text-xl font-semibold mb-2 text-gray-800">AI-Assisteret Vejledning</h3>
           <p className="text-gray-800">Få personaliserede råd og strategier baseret på specifikke situationer og behov.</p>
         </div>
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-xl font-semibold mb-2">Fællesskab & Support</h3>
+          <h3 className="text-xl font-semibold mb-2 text-gray-800">Fællesskab & Support</h3>
           <p className="text-gray-800">Tilslut dig et netværk af professionelle og forældre, der deler erfaringer og støtter hinanden.</p>
         </div>
         <div className="bg-white rounded-lg shadow-md p-6">
