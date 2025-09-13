@@ -47,7 +47,10 @@ export default function HomePage() {
       {/* Pricing Plans */}
       <section id="pricing" className="bg-white py-16 px-6">
         <h2 className="text-3xl font-bold text-center mb-8 <section id="pricing" className="bg-white py-16 px-6">
-        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">Vælg Din Plan</h2>
+  <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
+    Vælg Din Plan
+  </h2>
+
 
           {/* Gratis Trial */}
           <div className="border border-green-400 rounded-lg p-6 text-center">
