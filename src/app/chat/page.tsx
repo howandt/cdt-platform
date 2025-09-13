@@ -6,7 +6,6 @@ import Link from 'next/link'
 
 export default function ChatPage() {
   const { user } = useUser()
-  const { timeLeft, isTrialExpired, formatTime } = useTrial()
   const [messages, setMessages] = useState([
   {
     role: 'assistant',
