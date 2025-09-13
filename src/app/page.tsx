@@ -39,7 +39,7 @@ export default function HomePage() {
           <p className="text-gray-800">Tilslut dig et netværk af professionelle og forældre, der deler erfaringer og støtter hinanden.</p>
         </div>
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-xl font-semibold mb-2 text-gray-800">Pro er altid up-to-date</h3>
+          <h3 className="text-xl font-semibold mb-2 text-gray-800">CDT-Pro altid up-to-date</h3>
           <p className="text-gray-800">Ny opdateret forskning og best practices indenfor special-pædagogik. Nye cases og teknikker tilføjes direkte i din CDT-Pro.</p>
         </div>
       </section>
