@@ -55,7 +55,6 @@ export default function ChatPage() {
   }
 }
 
-
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
@@ -75,9 +74,7 @@ export default function ChatPage() {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <span className={`text-sm ${isTrialExpired ? 'text-red-600 font-semibold' : 'text-gray-700'}`}>
-                {isTrialExpired ? 'Trial Udløbet' : `Trial: ${formatTime(timeLeft)} tilbage`}
-              </span>
+              <span className="text-sm text-gray-700">CDT Pro Demo</span>
               <UserButton />
             </div>
           </div>
