@@ -1,6 +1,6 @@
 'use client'
 import { UserButton, useUser } from '@clerk/nextjs'
-import { BookOpen, MessageCircle, CreditCard, ArrowLeft } from 'lucide-react'
+import { BookOpen, CreditCard, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 
 export default function Dashboard() {
@@ -57,6 +57,7 @@ export default function Dashboard() {
               Opgrader til Pro
             </button>
           </div>
+        </div>
 
         {/* Ressourcer */}
         <div className="bg-white rounded-lg shadow p-6 mb-8">
