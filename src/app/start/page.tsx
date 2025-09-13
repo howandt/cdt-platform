@@ -49,7 +49,7 @@ export default function StartPage() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="mt-1 w-full border border-gray-300 rounded-lg p-2"
+              className="mt-1 w-full border border-gray-300 rounded-lg p-2 text-gray-800"
               placeholder="F.eks. Hans Jensen"
             />
           </div>
@@ -60,7 +60,7 @@ export default function StartPage() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 w-full border border-gray-300 rounded-lg p-2"
+              className="mt-1 w-full border border-gray-300 rounded-lg p-2 text-gray-800"
               placeholder="hans@email.dk"
             />
           </div>
@@ -70,7 +70,7 @@ export default function StartPage() {
             <select
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              className="mt-1 w-full border border-gray-300 rounded-lg p-2"
+              className="mt-1 w-full border border-gray-300 rounded-lg p-2 text-gray-800"
             >
               <option value="">-- Vælg rolle --</option>
               <option value="forælder">Forælder</option>
@@ -86,7 +86,7 @@ export default function StartPage() {
               type="text"
               value={school}
               onChange={(e) => setSchool(e.target.value)}
-              className="mt-1 w-full border border-gray-300 rounded-lg p-2"
+              className="mt-1 w-full border border-gray-300 rounded-lg p-2 text-gray-800"
               placeholder="Valgfrit"
             />
           </div>
