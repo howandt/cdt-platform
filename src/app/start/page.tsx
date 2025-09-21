@@ -31,7 +31,7 @@ export default function StartPage() {
     localStorage.setItem("cdtUser", JSON.stringify(user))
 
     // Gå videre til test
-    router.push("https://cdt-training.vercel.app")
+    router.push(`https://cdt-training.vercel.app/training?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&role=${encodeURIComponent(role)}&type=test`)
   }
 
   return (
