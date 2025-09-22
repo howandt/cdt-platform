@@ -10,6 +10,7 @@ const isPublicRoute = createRouteMatcher([
   "/api/ping",
   "/api/heidi-pack",
   "/heidi",
+  "/heidi-chat",
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
