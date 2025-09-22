@@ -95,7 +95,7 @@ export default function StartPage() {
             className="w-full mt-4 text-gray-800"
             onClick={handleStart}
           >
-            Start Test
+            Registrer
           </Button>
         </div>
       </div>
