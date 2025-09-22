@@ -92,7 +92,7 @@ export default function StartPage() {
           </div>
 
           <Button
-            className="w-full mt-4 text-gray-800"
+            className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
             onClick={handleStart}
           >
             Registrer
