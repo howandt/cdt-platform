@@ -2,9 +2,8 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
 
-export default function StartPage() {
+export default function RegistrerPage() {
   const router = useRouter()
 
   const [name, setName] = useState("")
@@ -13,7 +12,7 @@ export default function StartPage() {
   const [school, setSchool] = useState("")
   const [error, setError] = useState("")
 
-  const handleStart = () => {
+  const handleRegister = () => {
     if (!name || !email || !role) {
       setError("Udfyld venligst alle obligatoriske felter.")
       return
@@ -30,8 +29,8 @@ export default function StartPage() {
 
     localStorage.setItem("cdtUser", JSON.stringify(user))
 
-    // Gå til Heidi onboarding
-    router.push(`/heidi`)
+    // Gå til onboarding
+    router.push(`/onboarding`)
   }
 
   return (
@@ -91,12 +90,12 @@ export default function StartPage() {
             />
           </div>
 
-          <Button
+          <button
             className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
-            onClick={handleStart}
+            onClick={handleRegister}
           >
             Registrer
-          </Button>
+          </button>
         </div>
       </div>
     </main>
