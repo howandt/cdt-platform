@@ -13,7 +13,7 @@ export default function HomePage() {
         </p>
         <div className="flex justify-center gap-4 mt-8 flex-wrap">
           <Link href="/registrer">
-            <button className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg text-lg">
+            <button className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg text-lg cursor-pointer">
               Start Gratis Test
             </button>
           </Link>
@@ -52,7 +52,7 @@ export default function HomePage() {
             <p className="text-gray-700 mb-2">30 minutter</p>
             <p className="text-gray-500 mb-4">Test hele Pro-pakken gratis</p>
             <Link href="/registrer">
-              <button className="bg-green-500 hover:bg-green-600 text-white w-full py-2 px-4 rounded">
+              <button className="bg-green-500 hover:bg-green-600 text-white w-full py-2 px-4 rounded cursor-pointer">
                 Start Trial
               </button>
             </Link>
